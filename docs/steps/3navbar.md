@@ -1,7 +1,5 @@
-import { Flex, Image } from "@chakra-ui/react";
-import React from "react";
-import SearchInput from "./SearchInput";
-
+./components/Navbar.Navbar.tsx
+```tsx
 const Navbar: React.FC = () => {
   return (
     <Flex
@@ -24,8 +22,8 @@ const Navbar: React.FC = () => {
           display={{ base: "none", md: "unset" }}
         />
       </Flex>
-      <SearchInput />
     </Flex>
   );
 };
 export default Navbar;
+```
