@@ -6,3 +6,4 @@
     * [2.Layout](steps/2layout.md)
     * [3.Navbar](steps/3navbar.md)
     * [4.SearchInput](steps/4searchInput.md)
+    * [5.AuthButtons](steps/5authButtons.md)
