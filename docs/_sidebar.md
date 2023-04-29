@@ -10,3 +10,4 @@
     * [6.AuthModal](steps/6authModal.md)
     * [7.Recoil](steps/7recoil.md)
     * [8.AuthModalContent](steps/8AuthModalContent.md)
+    * [9.FirebaseSetUp](steps/9FirebaseSetUp.md)
