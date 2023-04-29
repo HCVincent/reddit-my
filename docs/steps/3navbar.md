@@ -1,4 +1,4 @@
-./components/Navbar.Navbar.tsx
+./components/Navbar/Navbar.tsx
 ```tsx
 const Navbar: React.FC = () => {
   return (

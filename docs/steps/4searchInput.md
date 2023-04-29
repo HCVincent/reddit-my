@@ -1,4 +1,4 @@
-add ```<SearchInput/> ```in Navbar.tsx
+add ```<SearchInput/> ```in ./components/Navbar.Navbar.tsx
 
 https://chakra-ui.com/docs/components/input
 
