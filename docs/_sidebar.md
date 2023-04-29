@@ -8,3 +8,4 @@
     * [4.SearchInput](steps/4searchInput.md)
     * [5.AuthButtons](steps/5authButtons.md)
     * [6.AuthModal](steps/6authModal.md)
+    * [7.Recoil](steps/7recoil.md)
