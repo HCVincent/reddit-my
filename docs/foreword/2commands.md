@@ -8,3 +8,7 @@ npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion @fontsource/
 npm i firebase recoil
 ```
 
+https://www.npmjs.com/package/react-firebase-hooks
+```bash
+npm i react-firebase-hooks
+```

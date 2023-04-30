@@ -1,10 +1,14 @@
-import { authModalState } from "@/atoms/authModalAtom";
-import { auth } from "@/firebase/clientApp";
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useSetRecoilState } from "recoil";
+https://www.npmjs.com/package/react-firebase-hooks
+https://github.com/CSFrequency/react-firebase-hooks/tree/master/auth#usecreateuserwithemailandpassword
+```bash
+npm i react-firebase-hooks
+```
 
+https://console.firebase.google.com/project
+Build -> Authentication, Enable Email/Password
+
+./components/Modal/Auth/SignUp.tsx
+```tsx
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [createUserWithEmailAndPassword, user, loading, userError] =
@@ -121,3 +125,5 @@ const SignUp: React.FC = () => {
   );
 };
 export default SignUp;
+
+```
