@@ -1,11 +1,11 @@
-import { auth } from "@/firebase/clientApp";
-import { Flex, Button, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import {
-  useSignInWithGithub,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
+https://console.firebase.google.com/project/my-reddit-7b581/authentication/providers
+Build -> Authentication -> Sign-in method, Enable Google, Github(needing Client ID && Client secret)
 
+here to get Github Client ID && Client secret
+https://github.com/settings/profile 
+settings -> Devloper settings -> OAuth Apps -> New OAuth App
+
+```tsx
 const OAuthButtons: React.FC = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
@@ -47,4 +47,4 @@ const OAuthButtons: React.FC = () => {
     </Flex>
   );
 };
-export default OAuthButtons;
+```
