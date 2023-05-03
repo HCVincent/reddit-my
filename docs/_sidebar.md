@@ -12,3 +12,4 @@
     * [08.AuthModalContent](steps/08AuthModalContent.md)
     * [09.FirebaseSetUp](steps/09FirebaseSetUp.md)
     * [10.UserCreation](steps/10UserCreation.md)
+    * [11FirebaseErrorHandling](steps/11FirebaseErrorHandling.md)
