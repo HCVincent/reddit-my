@@ -13,4 +13,5 @@
     * [09.FirebaseSetUp](steps/09FirebaseSetUp.md)
     * [10.UserCreation](steps/10UserCreation.md)
     * [11FirebaseErrorHandling](steps/11FirebaseErrorHandling.md)
-    * [12GoogleAuth](steps/12GoogleAuth.md)
+    * [12FirebaseAuth](steps/12FirebaseAuth.md)
+    * [13LoginWithEmail](steps/13LoginWithEmail.md)
