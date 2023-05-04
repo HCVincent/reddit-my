@@ -1,27 +1,16 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  Menu,
-  MenuButton,
-  Button,
-  MenuList,
-  MenuItem,
-  Text,
-  Box,
-  Flex,
-  Icon,
-  MenuDivider,
-} from "@chakra-ui/react";
-import { User, signOut } from "firebase/auth";
-import React from "react";
-import { FaRedditSquare } from "react-icons/fa";
-import { VscAccount } from "react-icons/vsc";
-import { IoSparkles } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { MdOutlineLogin } from "react-icons/md";
-import { auth } from "@/firebase/clientApp";
-import { useSetRecoilState } from "recoil";
-import { authModalState } from "@/atoms/authModalAtom";
+https://chakra-ui.com/docs/components/menu#usage
 
+./components/Navbar/RightContent/RightContent.tsx
+```tsx
+<Flex justify="center" align="center">
+        {user ? <Icons /> : <AuthButtons />}
+        <UserMenu user={user} />
+      </Flex>
+```
+
+
+./components/Navbar/RightContent/UserMenu.tsx
+```tsx
 type UserMenuProps = { user?: User | null };
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
@@ -114,3 +103,5 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   );
 };
 export default UserMenu;
+
+```
