@@ -1,11 +1,11 @@
 ./components/Navbar/Navbar.tsx
-```tsx
+```ts
       {user && <Directory />}
       <SearchInput user={user} />
 ```
 
 ./components/Navbar/Directory/Directory.tsx
-```tsx
+```ts
 const Directory: React.FC = () => {
   return (
     <Menu>
@@ -41,7 +41,7 @@ export default Directory;
 ```
 
 ./components/Navbar/SearchInput.tsx
-```tsx
+```ts
 type SearchInputProps = { user?: User | null };
 
 const SearchInput: React.FC<SearchInputProps> = ({ user }) => {

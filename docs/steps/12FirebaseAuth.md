@@ -6,7 +6,7 @@ https://github.com/settings/profile
 settings -> Devloper settings -> OAuth Apps -> New OAuth App
 
 https://github.com/CSFrequency/react-firebase-hooks/tree/master/auth#usesigninwithgoogle
-```tsx
+```ts
 const OAuthButtons: React.FC = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);

@@ -1,5 +1,5 @@
 ./components/Navbar/Navbar.tsx
-```tsx
+```ts
 const Navbar: React.FC = () => {
   return <div>nav</div>;
 };
@@ -7,7 +7,7 @@ export default Navbar;
 ```
 
 ./components/Layout/Layout.tsx
-```tsx
+```ts
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -23,7 +23,7 @@ export default Layout;
 ```
 
 ./pages/_app.tsx
-```tsx
+```ts
 return (
     <ChakraProvider theme={theme}>
       <Layout>

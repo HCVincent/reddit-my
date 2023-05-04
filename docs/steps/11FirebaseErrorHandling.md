@@ -1,5 +1,5 @@
 ./firebase/errors.ts
-```tsx
+```ts
 export const FIREBASE_ERRORS = {
     "Firebase: Error (auth/email-already-in-use).": "A user with that email already exists.",
     "Firebase: Error (auth/user-not-found).": "Invalid email or password.",
@@ -8,7 +8,7 @@ export const FIREBASE_ERRORS = {
 ```
 
 ./components/Modal/Auth
-```tsx
+```ts
       {(error || userError) && (
         <Text textAlign="center" color="red" fontSize="10pt">
           {error ||

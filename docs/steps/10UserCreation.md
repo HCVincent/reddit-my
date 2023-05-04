@@ -8,7 +8,7 @@ https://console.firebase.google.com/project
 Build -> Authentication, Enable Email/Password
 
 ./components/Modal/Auth/SignUp.tsx
-```tsx
+```ts
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [createUserWithEmailAndPassword, user, loading, userError] =

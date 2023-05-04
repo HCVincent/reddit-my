@@ -1,7 +1,7 @@
 https://chakra-ui.com/docs/styled-system/customize-theme
 
 ./chakra/theme.ts
-```tsx
+```ts
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/open-sans/300.css";
 import "@fontsource/open-sans/400.css";
@@ -31,7 +31,7 @@ export const theme = extendTheme({
 ```
 
 ./chakra/buttons.ts
-```tsx
+```ts
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
 export const Button: ComponentStyleConfig = {

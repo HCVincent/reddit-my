@@ -1,5 +1,5 @@
 ./components/Navbar/Navbar.tsx
-```tsx
+```ts
 const Navbar: React.FC = () => {
   return (
     <Flex

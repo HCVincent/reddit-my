@@ -1,5 +1,5 @@
 add ```<RecoilRoot> ```in ./pages/_app.tsx
-```tsx
+```ts
   return (
     <RecoilRoot>
       <ChakraProvider theme={theme}>
@@ -13,7 +13,7 @@ add ```<RecoilRoot> ```in ./pages/_app.tsx
 
 https://recoiljs.org/docs/basic-tutorial/atoms
 ./atoms/authModalAtom.ts
-```tsx
+```ts
 import { atom } from "recoil";
 
 export interface AuthModalState {
@@ -34,7 +34,7 @@ export const authModalState = atom<AuthModalState>({
 
 change authModal
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
   const handleClose = () => {
@@ -66,7 +66,7 @@ const AuthModal: React.FC = () => {
 
 add onClick on AuthButtons
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
 <Button
         variant="outline"
         height="28px"

@@ -1,5 +1,5 @@
 ./components/Modal/Auth/Login.tsx
-```tsx
+```ts
     const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
       const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {

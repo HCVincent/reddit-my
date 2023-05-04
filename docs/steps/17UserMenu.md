@@ -1,7 +1,7 @@
 https://chakra-ui.com/docs/components/menu#usage
 
 ./components/Navbar/RightContent/RightContent.tsx
-```tsx
+```ts
 <Flex justify="center" align="center">
         {user ? <Icons /> : <AuthButtons />}
         <UserMenu user={user} />
@@ -10,7 +10,7 @@ https://chakra-ui.com/docs/components/menu#usage
 
 
 ./components/Navbar/RightContent/UserMenu.tsx
-```tsx
+```ts
 type UserMenuProps = { user?: User | null };
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {

@@ -1,5 +1,5 @@
 ./components/Navbar/RightContent/RightContent/tsx
-```tsx
+```ts
 type RightContentProps = {
   user?: User | null;
 };

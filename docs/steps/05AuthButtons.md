@@ -1,7 +1,7 @@
 add ```<RightContent/> ```in Navbar.tsx
 
 ./components/Navbar/RightContent/RightContent.tsx
-```tsx
+```ts
 type RightContentProps = {};
 
 const RightContent: React.FC<RightContentProps> = () => {
@@ -17,7 +17,7 @@ export default RightContent;
 ```
 
 ./components/Navbar/RightContent/AuthButtons.tsx
-```tsx
+```ts
 const AuthButtons: React.FC = () => {
   return (
     <>

@@ -3,7 +3,7 @@ add ```<SearchInput/> ```in ./components/Navbar.Navbar.tsx
 https://chakra-ui.com/docs/components/input
 
 ./components/Navbar/SearchInput.tsx
-```tsx
+```ts
 type SearchInputProps = {};
 
 const SearchInput: React.FC<SearchInputProps> = () => {

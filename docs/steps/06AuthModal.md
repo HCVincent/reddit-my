@@ -1,5 +1,5 @@
 add ```<AuthModal/> ```in ./components/Navbar/RightContent/RightContent.tsx
-```tsx
+```ts
   return (
     <>
       <AuthModal />
@@ -13,7 +13,7 @@ add ```<AuthModal/> ```in ./components/Navbar/RightContent/RightContent.tsx
 https://chakra-ui.com/docs/components/modal
 
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
 const AuthModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (

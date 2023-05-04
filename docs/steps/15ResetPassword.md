@@ -1,5 +1,5 @@
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
               {modalState.view === "login" || modalState.view === "signup" ? (
                 <>
                   <OAuthButtons />
@@ -14,7 +14,7 @@
 ```
 
 ./components/Modal/Auth/ResetPassword.tsx
-```tsx
+```ts
 const ResetPassword: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [email, setEmail] = useState("");

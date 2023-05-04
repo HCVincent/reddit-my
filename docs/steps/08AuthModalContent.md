@@ -1,6 +1,6 @@
 based on modalState.view to decide what modal content is
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
   const handleClose = () => {
@@ -50,7 +50,7 @@ export default AuthModal;
 
 
 ./components/Modal/Auth/AuthInputs.tsx
-```tsx
+```ts
 const AuthInputs: React.FC = () => {
   const modalState = useRecoilValue(authModalState);
   return (
@@ -64,7 +64,7 @@ export default AuthInputs;
 ```
 
 ./components/Modal/Auth/SignUp.tsx
-```tsx
+```ts
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [signUpForm, setSignUpForm] = useState({
@@ -164,7 +164,7 @@ const SignUp: React.FC = () => {
 export default SignUp;
 ```
 ./components/Modal/Auth/Login.tsx
-```tsx
+```ts
 const Login: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [loginForm, setLoginForm] = useState({
@@ -257,7 +257,7 @@ export default Login;
 
 ```
 ./components/Modal/Auth/OAuthButtons.tsx
-```tsx
+```ts
 const OAuthButtons: React.FC = () => {
   return (
     <Flex direction="column" width="100%" mb={4}>

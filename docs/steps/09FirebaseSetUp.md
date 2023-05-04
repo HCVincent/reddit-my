@@ -1,7 +1,7 @@
 https://console.firebase.google.com/project
 
 ./.env.local
-```tsx
+```ts
 NEXT_PUBLIC_FIREBASE_APIKEY
 NEXT_PUBLIC_FIREBASE_AUTHDOMAIN
 NEXT_PUBLIC_FIREBASE_PROJECTID
@@ -11,7 +11,7 @@ NEXT_PUBLIC_FIREBASE_APPID
 ```
 
 ./firebase/clientApp.ts
-```tsx
+```ts
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";

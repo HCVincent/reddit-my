@@ -1,7 +1,7 @@
 https://github.com/CSFrequency/react-firebase-hooks/tree/master/auth#useauthstate
 
 ./components/Modal/Auth/AuthModal.tsx
-```tsx
+```ts
   const [user, loading, error] = useAuthState(auth);
     useEffect(() => {
     if (user) handleClose();
@@ -9,14 +9,14 @@ https://github.com/CSFrequency/react-firebase-hooks/tree/master/auth#useauthstat
 ```
 
 ./components/Navbar/Navbar.tsx
-```tsx
+```ts
   const [user, loading, error] = useAuthState(auth);
   ...
   <RightContent user={user} />
 ```
 
 ./components/Navbar/RightContent.tsx
-```tsx
+```ts
 type RightContentProps = {
   user: any;
 };

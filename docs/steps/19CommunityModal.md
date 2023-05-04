@@ -1,12 +1,12 @@
 ./components/Navbar/Directory/Directory.tsx
-```tsx
+```ts
       <MenuList>
         <Communities />
       </MenuList>
 ```
 
 ./components/Navbar/Directory/Communities.tsx
-```tsx
+```ts
 const Communities: React.FC = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -29,7 +29,7 @@ const Communities: React.FC = () => {
 export default Communities;
 ```
 
-```tsx
+```ts
 type CreateCommunityModalProps = {
   open: boolean;
   handleClose: () => void;
