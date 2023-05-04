@@ -12,3 +12,7 @@ https://www.npmjs.com/package/react-firebase-hooks
 ```bash
 npm i react-firebase-hooks
 ```
+
+```bash
+npm i react-icons
+```
