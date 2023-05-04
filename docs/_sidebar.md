@@ -15,3 +15,6 @@
     * [11FirebaseErrorHandling](steps/11FirebaseErrorHandling.md)
     * [12FirebaseAuth](steps/12FirebaseAuth.md)
     * [13LoginWithEmail](steps/13LoginWithEmail.md)
+    * [14UseAuthState](steps/14UseAuthState.md)
+    * [15ResetPassword](steps/15ResetPassword.md)
+    * [16NavbarIcons](steps/16NavbarIcons.md)
