@@ -18,3 +18,6 @@
     * [14UseAuthState](steps/14UseAuthState.md)
     * [15ResetPassword](steps/15ResetPassword.md)
     * [16NavbarIcons](steps/16NavbarIcons.md)
+    * [17UserMenu](steps/17UserMenu.md)
+    * [18CommunityDirectory](steps/18CommunityDirectory.md)
+    * [19CommunityModal](steps/19CommunityModal.md)
