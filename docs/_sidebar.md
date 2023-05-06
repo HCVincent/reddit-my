@@ -24,3 +24,4 @@
     * [20HandleCreateCommunity](steps/20HandleCreateCommunity.md)
     * [21CloudFunctions](steps/21CloudFunctions.md)
     * [22HandleCreateCommunityByRunTran](steps/22HandleCreateCommunityByRunTran.md)
+    * [23InitPageContent](steps/23InitPageContent.md)
