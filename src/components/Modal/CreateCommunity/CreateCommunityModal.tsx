@@ -16,12 +16,12 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import error from "next/error";
 import React, { useState } from "react";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -48,6 +48,38 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   ) => {
     setCommunityType(event.target.name);
   };
+  const handleCreateCommunity = async () => {
+    if (error) setError("");
+    const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if (format.test(communityName) || communityName.length < 3) {
+      setError(
+        "Community names must be between 3-21 characters, and can only contain letters, numbers or underscoreds"
+      );
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const communityDocRef = doc(firestore, "communities", communityName);
+      const communityDoc = await getDoc(communityDocRef);
+      if (communityDoc.exists()) {
+        setError(`Sorry, r/${communityName} is taken. Try another.`);
+        return;
+      }
+
+      await setDoc(communityDocRef, {
+        creatorId: user?.uid,
+        createdAt: serverTimestamp(),
+        numberOfMembers: 1,
+        privacyType: communityType,
+      });
+    } catch (error: any) {
+      console.log("handleCreateCommunity error", error);
+      setError(error.message);
+    }
+    setLoading(false);
+  };
+
   return (
     <>
       <Modal isOpen={open} onClose={handleClose} size="lg">
@@ -159,7 +191,11 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             >
               Cancel
             </Button>
-            <Button height="30px" isLoading={loading}>
+            <Button
+              height="30px"
+              isLoading={loading}
+              onClick={handleCreateCommunity}
+            >
               Create Community
             </Button>
           </ModalFooter>

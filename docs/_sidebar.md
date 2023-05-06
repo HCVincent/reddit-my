@@ -21,3 +21,4 @@
     * [17UserMenu](steps/17UserMenu.md)
     * [18CommunityDirectory](steps/18CommunityDirectory.md)
     * [19CommunityModal](steps/19CommunityModal.md)
+    * [20HandleCreateCommunity](steps/20HandleCreateCommunity.md)
