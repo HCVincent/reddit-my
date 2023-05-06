@@ -23,3 +23,4 @@
     * [19CommunityModal](steps/19CommunityModal.md)
     * [20HandleCreateCommunity](steps/20HandleCreateCommunity.md)
     * [21CloudFunctions](steps/21CloudFunctions.md)
+    * [22HandleCreateCommunityByRunTran](steps/22HandleCreateCommunityByRunTran.md)
