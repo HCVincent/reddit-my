@@ -8,7 +8,7 @@ import { useSetRecoilState } from "recoil";
 
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
-  const [createUserWithEmailAndPassword, user, loading, userError] =
+  const [createUserWithEmailAndPassword, userCred, loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
   const [signUpForm, setSignUpForm] = useState({
     email: "",
@@ -32,6 +32,19 @@ const SignUp: React.FC = () => {
       [event.target.name]: event.target.value,
     }));
   };
+
+  // same as google firebase cloud function
+  // const createUserDocument = async (user: User) => {
+  //   await addDoc(
+  //     collection(firestore, "users"),
+  //     JSON.parse(JSON.stringify(user))
+  //   );
+  // };
+  // useEffect(() => {
+  //   if (userCred) {
+  //     createUserDocument(userCred.user);
+  //   }
+  // }, [userCred]);
 
   return (
     <form onSubmit={onSubmit}>
