@@ -26,3 +26,4 @@
     * [22HandleCreateCommunityByRunTran](steps/22HandleCreateCommunityByRunTran.md)
     * [23InitPageContent](steps/23InitPageContent.md)
     * [24GlobalComState&CustomHook](steps/24GlobalComState&CustomHook.md)
+    * [25FetchCommunitySnippets](steps/25FetchCommunitySnippets.md)
