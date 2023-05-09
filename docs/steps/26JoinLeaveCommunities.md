@@ -1,56 +1,6 @@
-import { communityState } from "@/atoms/communitiesAtom";
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { Community } from "@/atoms/communitiesAtom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "@/firebase/clientApp";
-import { authModalState } from "@/atoms/authModalAtom";
-import {
-  collection,
-  doc,
-  getDocs,
-  increment,
-  writeBatch,
-} from "firebase/firestore";
-import { CommunitySnippet } from "@/atoms/communitiesAtom";
-
-const useCommunityData = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [user] = useAuthState(auth);
-  const setAuthModalState = useSetRecoilState(authModalState);
-  const [communityStateValue, setCommunityStateValue] =
-    useRecoilState(communityState);
-  const onJoinOrLeaveCommunity = (
-    communityData: Community,
-    isJoined: boolean
-  ) => {
-    if (!user) {
-      setAuthModalState({ open: true, view: "login" });
-      return;
-    }
-    if (isJoined) {
-      leaveCommunity(communityData.id);
-      return;
-    }
-    joinCommunity(communityData);
-  };
-  const getMySnippets = async () => {
-    setLoading(true);
-    try {
-      const snippetDocs = await getDocs(
-        collection(firestore, `users/${user?.uid}/communitySnippets`)
-      );
-      const snippets = snippetDocs.docs.map((doc) => ({ ...doc.data() }));
-      setCommunityStateValue((prev) => ({
-        ...prev,
-        mySnippets: snippets as CommunitySnippet[],
-      }));
-    } catch (error) {
-      console.log("getMySnippets error", error);
-    }
-    setLoading(false);
-  };
+https://firebase.google.com/docs/firestore/manage-data/transactions
+./hooks/useCommunityData.tsx
+```tsx
   const joinCommunity = async (communityData: Community) => {
     setLoading(true);
     try {
@@ -112,3 +62,4 @@ const useCommunityData = () => {
   return { communityStateValue, onJoinOrLeaveCommunity, loading };
 };
 export default useCommunityData;
+```
