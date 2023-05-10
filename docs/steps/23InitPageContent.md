@@ -159,13 +159,13 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
         >
           {children && children[0 as keyof typeof children]}
         </Flex>
-        <Box
+        <Flex
           display={{ base: "none", md: "flex" }}
           flexDirection="column"
           flexGrow={1}
         >
           {children && children[1 as keyof typeof children]}
-        </Box>
+        </Flex>
       </Flex>
     </Flex>
   );

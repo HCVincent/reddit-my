@@ -28,3 +28,4 @@
     * [24GlobalComState&CustomHook](steps/24GlobalComState&CustomHook.md)
     * [25FetchCommunitySnippets](steps/25FetchCommunitySnippets.md)
     * [26JoinLeaveCommunities](steps/26JoinLeaveCommunities.md)
+    * [27FormTabsComponent](steps/27FormTabsComponent.md)
