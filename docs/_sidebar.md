@@ -31,3 +31,4 @@
     * [27FormTabsComponent](steps/27FormTabsComponent.md)
     * [28PostText&Image](steps/28PostText%26Image.md)
     * [29FetchPosts](steps/29FetchPosts.md)
+    * [30PostItem](steps/30PostItem.md)
