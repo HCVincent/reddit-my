@@ -1,5 +1,5 @@
 ./atoms/communitiesAtom.ts
-```tsx
+```ts
 export interface CommunitySnippet {
     communityId: string;
     isModerator?: boolean;
@@ -8,7 +8,7 @@ export interface CommunitySnippet {
 ```
 
 ./hooks/useCommunityDta.tsx
-```tsx
+```ts
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [user] = useAuthState(auth);
@@ -38,7 +38,7 @@ export interface CommunitySnippet {
 ```
 
 ./components/Community/Header.tsx
-```tsx
+```ts
   const { communityStateValue, onJoinOrLeaveCommunity, loading } =
     useCommunityData();
     //...
@@ -49,7 +49,7 @@ export interface CommunitySnippet {
 ```
 
 ./components/Navbar/RightContent/UserMenu.tsx
-```tsx
+```ts
   const resetCommunityState = useResetRecoilState(communityState);
   const logout = async () => {
     await signOut(auth);

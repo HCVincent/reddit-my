@@ -1,5 +1,5 @@
 ./pages/r/[communityId]/index.tsx
-```tsx
+```ts
       <PageContent>
         <>
           <CreatePostLink />
@@ -11,7 +11,7 @@
 ```
 
 ./components/Community/CreatePostLink.tsx
-```tsx
+```ts
 type CreatePostLinkProps = {};
 
 const CreatePostLink: React.FC<CreatePostLinkProps> = () => {
@@ -81,7 +81,7 @@ export default CreatePostLink;
 ```
 
 ./pages/r/[communityId]/submit.tsx
-```tsx
+```ts
 type submitProps = {};
 
 const submit: React.FC<submitProps> = () => {
@@ -103,7 +103,7 @@ export default submit;
 ```
 
 ./Components/Posts/NewPostForm.tsx
-```tsx
+```ts
 type NewPostFormProps = {};
 
 const formTabs = [
@@ -139,7 +139,7 @@ export default NewPostForm;
 ```
 
 ./components/Posts/TabItem.tsx
-```tsx
+```ts
 type TabItemProps = {
   item: TabIt;
   selected: boolean;

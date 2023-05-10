@@ -17,7 +17,7 @@ No
 Yes
 
 functions/src/index.ts
-```tsx
+```ts
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
@@ -41,7 +41,7 @@ firebase deploy --only functions
 
 second way to achieve same functions above
 ./components/Modal/Auth/SignUp.tsx
-```tsx
+```ts
 const [createUserWithEmailAndPassword, userCred, loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
   const createUserDocument = async (user: User) => {

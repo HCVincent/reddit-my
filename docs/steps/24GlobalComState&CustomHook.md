@@ -1,5 +1,5 @@
 ./atoms/communitiesAtom.ts
-```tsx
+```ts
 interface CommunitySnippet {
     communityId: string;
     isModerator?: boolean;
@@ -21,7 +21,7 @@ export const communityState = atom<CommunityState>({
 ```
 
 ./hooks/useCommunityData.tsx
-```tsx
+```ts
 const useCommunityData = () => {
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
@@ -43,7 +43,7 @@ export default useCommunityData;
 ```
 
 ./components/Community/Header.tsx
-```tsx
+```ts
   const { communityStateValue, onJoinOrLeaveCommunity } = useCommunityData();
   const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id

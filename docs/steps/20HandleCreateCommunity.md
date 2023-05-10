@@ -7,7 +7,7 @@ https://stackoverflow.com/questions/32311081/check-for-special-characters-in-str
 Cloud Firestore Get data
 https://firebase.google.com/docs/firestore/query-data/get-data
 ./components/Modal/CreateCommunity/CreateCommunityModal.tsx
-```tsx
+```ts
 const handleCreateCommunity = async () => {
     if (error) setError("");
     const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;

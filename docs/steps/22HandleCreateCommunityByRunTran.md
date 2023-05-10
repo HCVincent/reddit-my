@@ -1,5 +1,5 @@
 ./components/Modal/CreateCommunity/CreateCommunityModal.tsx
-```tsx
+```ts
   const handleCreateCommunity = async () => {
     if (error) setError("");
     const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;

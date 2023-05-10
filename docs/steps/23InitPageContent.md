@@ -2,7 +2,7 @@ https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server
 https://betterprogramming.pub/building-an-international-website-with-next-js-a3f4d5c381a5
 
 ./pages/r/[communityId]/index.tsx
-```tsx
+```ts
 type CommunityPageProps = {
   communityData: Community;
 };
@@ -52,7 +52,7 @@ export default index;
 ```
 
 ./atoms/communitiesAtom.ts
-```tsx
+```ts
 export interface Community {
     id: string;
     creatorId: string;
@@ -64,7 +64,7 @@ export interface Community {
 ```
 
 ./components/Community/CommunityNotFound.tsx
-```tsx
+```ts
 const CommunityNotFound: React.FC = () => {
   return (
     <Flex
@@ -84,7 +84,7 @@ export default CommunityNotFound;
 ```
 
 ./components/Community/Header.tsx
-```tsx
+```ts
 type HeaderProps = {
   communityData: Community;
 };
@@ -145,7 +145,7 @@ export default Header;
 ```
 
 ./components/Layout/PageContent.tsx
-```tsx
+```ts
 type PageContentProps = { children: React.ReactNode };
 
 const PageContent: React.FC<PageContentProps> = ({ children }) => {

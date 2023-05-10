@@ -1,6 +1,6 @@
 https://firebase.google.com/docs/firestore/manage-data/transactions
 ./hooks/useCommunityData.tsx
-```tsx
+```ts
   const joinCommunity = async (communityData: Community) => {
     setLoading(true);
     try {
