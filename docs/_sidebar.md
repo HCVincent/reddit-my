@@ -29,3 +29,4 @@
     * [25FetchCommunitySnippets](steps/25FetchCommunitySnippets.md)
     * [26JoinLeaveCommunities](steps/26JoinLeaveCommunities.md)
     * [27FormTabsComponent](steps/27FormTabsComponent.md)
+    * [28PostText&Image](steps/28PostText%26Image.md)
