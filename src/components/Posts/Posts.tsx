@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import usePosts from "@/hooks/usePosts";
 import PostItem from "./PostItem";
 import { useAuthState } from "react-firebase-hooks/auth";
+import PostLoader from "./PostLoader";
+import { Stack } from "@chakra-ui/react";
 
 type PostsProps = {
   communityData: Community;
@@ -46,17 +48,23 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
   }, [communityData]);
   return (
     <>
-      {postStateValue.posts.map((item) => (
-        <PostItem
-          key={item.communityId}
-          post={item}
-          userIsCreator={user?.uid === item.creatorId}
-          userVoteValue={undefined}
-          onVote={onVote}
-          onSelectPost={onSelectPost}
-          onDeletePost={onDeletePost}
-        />
-      ))}
+      {loading ? (
+        <PostLoader />
+      ) : (
+        <Stack>
+          {postStateValue.posts.map((item) => (
+            <PostItem
+              key={item.id}
+              post={item}
+              userIsCreator={user?.uid === item.creatorId}
+              userVoteValue={undefined}
+              onVote={onVote}
+              onSelectPost={onSelectPost}
+              onDeletePost={onDeletePost}
+            />
+          ))}
+        </Stack>
+      )}
     </>
   );
 };

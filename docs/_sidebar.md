@@ -32,3 +32,4 @@
     * [28PostText&Image](steps/28PostText%26Image.md)
     * [29FetchPosts](steps/29FetchPosts.md)
     * [30PostItem](steps/30PostItem.md)
+    * [31PostLoader](steps/31PostLoader.md)
