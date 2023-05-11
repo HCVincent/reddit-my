@@ -34,3 +34,4 @@
     * [30PostItem](steps/30PostItem.md)
     * [31PostLoader](steps/31PostLoader.md)
     * [32DeletingPost](steps/32DeletingPost.md)
+    * [33AboutPage](steps/33AboutPage.md)
