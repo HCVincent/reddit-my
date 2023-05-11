@@ -174,3 +174,17 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
 };
 export default About;
 ```
+
+./components/Community/Header.tsx
+```ts
+return (
+    <Flex direction="column" width="100%" height="146px">
+      <Box height="50%" bg="blue.400" />
+      <Flex justifyContent="center" bg="white" height="50%">
+        <Flex width="95%" maxWidth="860px">
+          {communityStateValue.currentCommunity?.imageURL ? (
+            <Image
+              alt="custom image"
+              src={communityStateValue.currentCommunity.imageURL}
+//...
+```
