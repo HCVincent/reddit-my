@@ -21,11 +21,17 @@ import {
   IoBookmarkOutline,
 } from "react-icons/io5";
 import moment from "moment";
+
 type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
   userVoteValue?: number;
-  onVote: () => void;
+  onVote: (
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    post: Post,
+    vote: number,
+    communityId: string
+  ) => Promise<boolean>;
   onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost?: () => void;
 };
@@ -38,9 +44,28 @@ const PostItem: React.FC<PostItemProps> = ({
   onDeletePost,
   onSelectPost,
 }) => {
+  const [loadingUpVote, setLoadingUpVote] = useState(false);
+  const [loadingDownVote, setLoadingDownVote] = useState(false);
   const [loadingImage, setLoadingImage] = useState(true);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(false);
+  const handleVote = async (
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    vote: number
+  ) => {
+    vote === 1 ? setLoadingUpVote(true) : setLoadingDownVote(true);
+
+    try {
+      const success = await onVote(event, post, vote, post.communityId);
+      if (!success) {
+        throw new Error("Failed to vote post");
+      }
+    } catch (error: any) {
+      setError(error.message);
+    }
+    setLoadingUpVote(false);
+    setLoadingDownVote(false);
+  };
   const handleDelete = async () => {
     setLoadingDelete(true);
     try {
@@ -71,27 +96,38 @@ const PostItem: React.FC<PostItemProps> = ({
         width="40px"
         borderRadius={4}
       >
-        <Icon
-          as={
-            userVoteValue === 1 ? IoArrowUpCircleSharp : IoArrowUpCircleOutline
-          }
-          color={userVoteValue === 1 ? "brand.100" : "gray.400"}
-          fontSize={22}
-          onClick={onVote}
-          cursor="pointer"
-        />
+        {loadingUpVote ? (
+          <Spinner size="sm" color="brand.100" />
+        ) : (
+          <Icon
+            as={
+              userVoteValue === 1
+                ? IoArrowUpCircleSharp
+                : IoArrowUpCircleOutline
+            }
+            color={userVoteValue === 1 ? "brand.100" : "gray.400"}
+            fontSize={22}
+            onClick={(event) => handleVote(event, 1)}
+            cursor="pointer"
+          />
+        )}
+
         <Text fontSize="9pt">{post.voteStatus}</Text>
-        <Icon
-          as={
-            userVoteValue === -1
-              ? IoArrowDownCircleSharp
-              : IoArrowDownCircleOutline
-          }
-          color={userVoteValue === -1 ? "#4379ff" : "gray.400"}
-          fontSize={22}
-          onClick={onVote}
-          cursor="pointer"
-        />
+        {loadingDownVote ? (
+          <Spinner size="sm" color="#4379ff" />
+        ) : (
+          <Icon
+            as={
+              userVoteValue === -1
+                ? IoArrowDownCircleSharp
+                : IoArrowDownCircleOutline
+            }
+            color={userVoteValue === -1 ? "#4379ff" : "gray.400"}
+            fontSize={22}
+            onClick={(event) => handleVote(event, -1)}
+            cursor="pointer"
+          />
+        )}
       </Flex>
       <Flex direction="column" width="100%">
         <Stack spacing={1} p="10px">
