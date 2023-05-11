@@ -1,26 +1,39 @@
-import React, { useState } from "react";
-import { Post } from "@/atoms/postsAtom";
-import {
-  Flex,
-  Icon,
-  Image,
-  Skeleton,
-  Spinner,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { BsChat } from "react-icons/bs";
-import { AiOutlineDelete } from "react-icons/ai";
-import {
-  IoArrowDownCircleOutline,
-  IoArrowDownCircleSharp,
-  IoArrowDownSharp,
-  IoArrowRedoOutline,
-  IoArrowUpCircleOutline,
-  IoArrowUpCircleSharp,
-  IoBookmarkOutline,
-} from "react-icons/io5";
-import moment from "moment";
+./hooks/usePosts.tsx
+```ts
+const usePosts = () => {
+  const [postStateValue, setPostStateValue] = useRecoilState(postState);
+  const onVote = async () => {};
+  const onSelectPost = () => {};
+  const onDeletePost = async (post: Post): Promise<boolean> => {
+    try {
+      if (post.imageURL) {
+        const imageRef = ref(storage, `posts/${post.id}/image`);
+        await deleteObject(imageRef);
+      }
+      const postDocRef = doc(firestore, "posts", post.id!);
+      await deleteDoc(postDocRef);
+      setPostStateValue((prev) => ({
+        ...prev,
+        posts: prev.posts.filter((item) => item.id !== post.id),
+      }));
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+  return {
+    onVote,
+    onSelectPost,
+    onDeletePost,
+    postStateValue,
+    setPostStateValue,
+  };
+};
+export default usePosts;
+```
+
+./components/Posts/PostItem.tsx
+```ts
 type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
@@ -177,3 +190,4 @@ const PostItem: React.FC<PostItemProps> = ({
   );
 };
 export default PostItem;
+```
