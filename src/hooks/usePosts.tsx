@@ -14,11 +14,13 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { deleteObject } from "firebase/storage";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const usePosts = () => {
+  const router = useRouter();
   const [user] = useAuthState(auth);
   const [postStateValue, setPostStateValue] = useRecoilState(postState);
   const currentCommunity = useRecoilValue(communityState).currentCommunity;
@@ -115,7 +117,15 @@ const usePosts = () => {
       return false;
     }
   };
-  const onSelectPost = () => {};
+
+  const onSelectPost = (post: Post) => {
+    setPostStateValue((prev) => ({
+      ...prev,
+      selectedPost: post,
+    }));
+    router.push(`/r/${post.communityId}/comments/${post.id}`);
+  };
+
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {
       if (post.imageURL) {

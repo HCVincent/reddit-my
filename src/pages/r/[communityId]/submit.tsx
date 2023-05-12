@@ -5,6 +5,7 @@ import { auth } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import useCommunityData from "@/hooks/useCommunityData";
 import NewPostForm from "@/components/Posts/NewPostForm";
+import About from "@/components/Community/About";
 
 type submitProps = {};
 
@@ -19,7 +20,11 @@ const submit: React.FC<submitProps> = () => {
         </Box>
         {user && <NewPostForm user={user} />}
       </>
-      <></>
+      <>
+        {communityStateValue.currentCommunity && (
+          <About communityData={communityStateValue.currentCommunity} />
+        )}
+      </>
     </PageContent>
   );
 };
