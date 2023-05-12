@@ -37,3 +37,4 @@
     * [34VotingOnPosts](steps/34VotingOnPosts.md)
     * [35SinglePage&CommunityData](steps/35SinglePage&CommunityData.md)
     * [36Comments](steps/36Comments.md)
+    * [37CommentItem](steps/37CommentItem.md)

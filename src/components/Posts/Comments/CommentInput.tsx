@@ -37,7 +37,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
             minHeight="160px"
             pb={10}
             _placeholder={{ color: "gray.500" }}
-            _focus={{
+            _focusVisible={{
               outline: "none",
               bg: "white",
               border: "1px solid black",

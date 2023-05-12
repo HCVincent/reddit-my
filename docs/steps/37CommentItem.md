@@ -1,31 +1,7 @@
-import { Post, postState } from "@/atoms/postsAtom";
-import {
-  Box,
-  Flex,
-  SkeletonCircle,
-  SkeletonText,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { User } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import CommentInput from "./CommentInput";
-import { Timestamp } from "firebase-admin/firestore";
-import {
-  collection,
-  doc,
-  getDocs,
-  increment,
-  orderBy,
-  query,
-  serverTimestamp,
-  where,
-  writeBatch,
-} from "firebase/firestore";
-import { firestore } from "@/firebase/clientApp";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import CommentItem, { Comment } from "./CommentItem";
+https://console.firebase.google.com/v1/r/project/**************/firestore/indexes?create_composite=ClBwcm9qZWN0cy9teS1yZWRkaXQtN2I1ODEvZGF0YWJhc2VzLyhkZWZhdWx0KS9jb2xsZWN0aW9uR3JvdXBzL2NvbW1lbnRzL2luZGV4ZXMvXxABGgoKBnBvc3RJZBABGg0KCWNyZWF0ZWRBdBACGgwKCF9fbmFtZV9fEAI
 
+./components/Posts/Comments/Comments.tsx
+```ts
 type CommentsProps = {
   user: User;
   selectedPost: Post | null;
@@ -195,3 +171,68 @@ const Comments: React.FC<CommentsProps> = ({
   );
 };
 export default Comments;
+```
+
+./components/Posts/Comments/CommentItem.tsx
+```ts
+export type Comment = {
+  id: string;
+  creatorId: string;
+  creatorDisplayText: string;
+  communityId: string;
+  postId: string;
+  postTitle: string;
+  text: string;
+  createdAt: Timestamp;
+};
+type CommentItemProps = {
+  comment: Comment;
+  onDeleteComment: (comment: Comment) => void;
+  loadingDelete: boolean;
+  userId: string;
+};
+
+const CommentItem: React.FC<CommentItemProps> = ({
+  comment,
+  onDeleteComment,
+  loadingDelete,
+  userId,
+}) => {
+  return (
+    <Flex>
+      <Box>
+        <Icon as={FaReddit} fontSize={30} color="gray.300" />
+      </Box>
+      <Stack spacing={1} ml={2}>
+        <Stack direction="row" align="center" fontSize="8pt">
+          <Text fontWeight={700}>{comment.creatorDisplayText}</Text>
+          <Text color="gray.600">
+            {moment(new Date(comment.createdAt?.seconds * 1000)).fromNow()}
+          </Text>
+          {loadingDelete && <Spinner size="sm" />}
+        </Stack>
+        <Text fontSize="10pt">{comment.text}</Text>
+        <Stack direction="row" align="center" cursor="pointer" color="gray.500">
+          <Icon as={IoArrowUpCircleOutline} />
+          <Icon as={IoArrowDownCircleOutline} />
+          {userId === comment.creatorId && (
+            <>
+              <Text fontSize="9pt" _hover={{ color: "blue.500" }}>
+                Edit
+              </Text>
+              <Text
+                fontSize="9pt"
+                _hover={{ color: "blue.500" }}
+                onClick={() => onDeleteComment(comment)}
+              >
+                Delete
+              </Text>
+            </>
+          )}
+        </Stack>
+      </Stack>
+    </Flex>
+  );
+};
+export default CommentItem;
+```
