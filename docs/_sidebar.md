@@ -36,3 +36,4 @@
     * [32DeletingPost](steps/32DeletingPost.md)
     * [34VotingOnPosts](steps/34VotingOnPosts.md)
     * [35SinglePage&CommunityData](steps/35SinglePage&CommunityData.md)
+    * [36Comments](steps/36Comments.md)
