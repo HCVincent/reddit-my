@@ -5,8 +5,11 @@ import RightContent from "./RightContent/RightContent";
 import { auth } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Directory from "./Directory/Directory";
+import useDirectory from "@/hooks/useDirectory";
+import { defaultMenuItem } from "@/atoms/directoryMenuAtom";
 
 const Navbar: React.FC = () => {
+  const { onSelectMenuItem } = useDirectory();
   const [user, loading, error] = useAuthState(auth);
   return (
     <Flex
@@ -20,6 +23,7 @@ const Navbar: React.FC = () => {
         width={{ base: "40px", md: "auto" }}
         mr={{ base: 0, md: 2 }}
         cursor="pointer"
+        onClick={() => onSelectMenuItem(defaultMenuItem)}
       >
         <Image src="/images/redditFace.svg" height="30px" alt="logo" />
         <Image

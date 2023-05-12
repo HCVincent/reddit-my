@@ -1,4 +1,8 @@
-import { Community, communityState } from "@/atoms/communitiesAtom";
+import {
+  Community,
+  CommunitySnippet,
+  communityState,
+} from "@/atoms/communitiesAtom";
 import { auth, firestore, storage } from "@/firebase/clientApp";
 import useSelectFile from "@/hooks/useSelectFile";
 import {
@@ -21,7 +25,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { FaReddit } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 type AboutProps = {
   communityData: Community;
@@ -33,7 +37,6 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const [uploadingImage, setUploadingImage] = useState(false);
   const setCommunityStateValue = useSetRecoilState(communityState);
-
   const onUpdateImage = async () => {
     if (!selectedFile) return;
     setUploadingImage(true);
@@ -44,6 +47,16 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
       await updateDoc(doc(firestore, "communities", communityData.id), {
         imageURL: downloadURL,
       });
+      await updateDoc(
+        doc(
+          firestore,
+          `users/${user?.uid}/communitySnippets`,
+          communityData.id
+        ),
+        {
+          imageURL: downloadURL,
+        }
+      );
       setCommunityStateValue((prev) => ({
         ...prev,
         currentCommunity: {

@@ -26,7 +26,7 @@ const index: React.FC<CommunityPageProps> = ({ communityData }) => {
       ...prev,
       currentCommunity: communityData,
     }));
-  }, []);
+  }, [communityData]);
   return (
     <>
       <Header communityData={communityData} />
