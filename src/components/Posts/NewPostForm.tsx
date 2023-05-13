@@ -20,7 +20,7 @@ import {
 import { firestore, storage } from "@/firebase/clientApp";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
-type NewPostFormProps = { user: User };
+type NewPostFormProps = { user: User; communityImageURL?: string };
 
 const formTabs = [
   { title: "Post", icon: IoDocumentText },
@@ -35,7 +35,10 @@ export type TabIt = {
   icon: typeof Icon.arguments;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityImageURL,
+}) => {
   const router = useRouter();
   const { communityId } = router.query;
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
@@ -49,6 +52,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const handleCreatePost = async () => {
     const newPost: Post = {
       communityId: communityId as string,
+      communityImageURL: communityImageURL || "",
       creatorId: user?.uid,
       creatorDisplayName: user.email!.split("@")[0],
       title: textInputs.title,

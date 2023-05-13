@@ -140,6 +140,11 @@ const useCommunityData = () => {
     }
     getMySnippets();
   }, [user]);
-  return { communityStateValue, onJoinOrLeaveCommunity, loading };
+  return {
+    communityStateValue,
+    onJoinOrLeaveCommunity,
+    loading,
+    getMySnippets,
+  };
 };
 export default useCommunityData;

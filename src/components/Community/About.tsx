@@ -4,6 +4,7 @@ import {
   communityState,
 } from "@/atoms/communitiesAtom";
 import { auth, firestore, storage } from "@/firebase/clientApp";
+import useCommunityData from "@/hooks/useCommunityData";
 import useSelectFile from "@/hooks/useSelectFile";
 import {
   Box,
@@ -37,6 +38,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const [uploadingImage, setUploadingImage] = useState(false);
   const setCommunityStateValue = useSetRecoilState(communityState);
+  const { getMySnippets } = useCommunityData();
   const onUpdateImage = async () => {
     if (!selectedFile) return;
     setUploadingImage(true);
@@ -64,6 +66,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           imageURL: downloadURL,
         } as Community,
       }));
+      getMySnippets();
     } catch (error) {
       console.log("onUpdateImage error", error);
     }

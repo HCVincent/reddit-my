@@ -28,6 +28,8 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
+import useDirectory from "@/hooks/useDirectory";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -44,6 +46,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { toggleMenuOpen } = useDirectory();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
     setCommunityName(event.target.value);
@@ -55,6 +58,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
     setCommunityType(event.target.name);
   };
   const handleCreateCommunity = async () => {
+    const router = useRouter();
     if (error) setError("");
     const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     if (format.test(communityName) || communityName.length < 3) {
@@ -83,6 +87,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           { communityId: communityName, isModerator: true }
         );
       });
+      handleClose();
+      toggleMenuOpen();
+      router.push(`r/${communityName}`);
     } catch (error: any) {
       console.log("handleCreateCommunity error", error);
       setError(error.message);
