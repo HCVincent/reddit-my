@@ -40,3 +40,4 @@
     * [37CommentItem](steps/37CommentItem.md)
     * [38CommunityNavDropdown&useDirectory](steps/38CommunityNavDropdown&useDirectory.md)
     * [39HomePage](steps/39HomePage.md)
+    * [40HomePosts](steps/40HomePosts.md)

@@ -1,25 +1,5 @@
-import { PostVote } from "@/atoms/postsAtom";
-import { Post } from "@/atoms/postsAtom";
-import CreatePostLink from "@/components/Community/CreatePostLink";
-import PageContent from "@/components/Layout/PageContent";
-import PostItem from "@/components/Posts/PostItem";
-import PostLoader from "@/components/Posts/PostLoader";
-import { auth, firestore } from "@/firebase/clientApp";
-import useCommunityData from "@/hooks/useCommunityData";
-import usePosts from "@/hooks/usePosts";
-import { Stack } from "@chakra-ui/react";
-import {
-  collection,
-  getDoc,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-
+./pages/index.tsx
+```ts
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
@@ -146,3 +126,52 @@ export default function Home() {
     </PageContent>
   );
 }
+```
+
+./atoms/communitesAtom.ts
+```ts
+interface CommunityState {
+    mySnippets: CommunitySnippet[];
+    currentCommunity?: Community;
+    snippetsFetched: boolean;
+}
+
+const defaultCommunityState: CommunityState = {
+    mySnippets: [],
+    snippetsFetched: false
+}
+```
+
+./hooks/useCommunityData.tsx
+```ts
+  const getMySnippets = async () => {
+    setLoading(true);
+    try {
+      const snippetDocs = await getDocs(
+        collection(firestore, `users/${user?.uid}/communitySnippets`)
+      );
+      const snippets = snippetDocs.docs.map((doc) => ({ ...doc.data() }));
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: snippets as CommunitySnippet[],
+        snippetsFetched: true,
+      }));
+    } catch (error) {
+      console.log("getMySnippets error", error);
+    }
+    setLoading(false);
+  };
+//...
+  useEffect(() => {
+    if (!user) {
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: [],
+        snippetsFetched: false,
+      }));
+      return;
+    }
+    getMySnippets();
+  }, [user]);
+```
+
