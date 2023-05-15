@@ -41,3 +41,4 @@
     * [38CommunityNavDropdown&useDirectory](steps/38CommunityNavDropdown&useDirectory.md)
     * [39HomePage](steps/39HomePage.md)
     * [40HomePosts](steps/40HomePosts.md)
+    * [41RecommendationsPremiumPersonalHome](steps/41RecommendationsPremiumPersonalHome.md)

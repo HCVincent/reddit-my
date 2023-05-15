@@ -1,13 +1,16 @@
 import { PostVote } from "@/atoms/postsAtom";
 import { Post } from "@/atoms/postsAtom";
 import CreatePostLink from "@/components/Community/CreatePostLink";
+import PersonalHome from "@/components/Community/PersonalHome";
+import Premium from "@/components/Community/Premium";
+import Recommendations from "@/components/Community/Recommendations";
 import PageContent from "@/components/Layout/PageContent";
 import PostItem from "@/components/Posts/PostItem";
 import PostLoader from "@/components/Posts/PostLoader";
 import { auth, firestore } from "@/firebase/clientApp";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
-import { Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import {
   collection,
   getDoc,
@@ -142,7 +145,11 @@ export default function Home() {
           ))}
         </Stack>
       )}
-      <Stack spacing={5}></Stack>
+      <Flex direction="column" boxSize="full">
+        <Recommendations />
+        <Premium />
+        <PersonalHome />
+      </Flex>
     </PageContent>
   );
 }
