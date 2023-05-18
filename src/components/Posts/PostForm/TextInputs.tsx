@@ -1,23 +1,38 @@
 import { Button, Flex, Input, Stack, Textarea } from "@chakra-ui/react";
 import React from "react";
-
+import { ContextStore } from "@uiw/react-md-editor";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+import dynamic from "next/dynamic";
+const MDEditor = dynamic(
+  () => import("@uiw/react-md-editor").then((mod) => mod.default),
+  { ssr: false }
+);
 type TextInputsProps = {
   textInputs: {
     title: string;
     body: string;
   };
+  editorValue: string | undefined;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleChange: (
+    value: string | undefined,
+    event: React.ChangeEvent<HTMLTextAreaElement> | undefined,
+    state: ContextStore | undefined
   ) => void;
   handleCreatePost: () => void;
   loading: boolean;
 };
 
 const TextInputs: React.FC<TextInputsProps> = ({
+  editorValue,
   textInputs,
   onChange,
   handleCreatePost,
   loading,
+  handleChange,
 }) => {
   return (
     <Stack spacing={3} width="100%" as="form">
@@ -39,6 +54,11 @@ const TextInputs: React.FC<TextInputsProps> = ({
         height="100px"
         placeholder="Text (optional)"
         _placeholder={{ color: "gray.500" }}
+      />
+      <MDEditor
+        value={editorValue}
+        onChange={handleChange}
+        className="handleChange"
       />
       <Flex justify="flex-end">
         <Button

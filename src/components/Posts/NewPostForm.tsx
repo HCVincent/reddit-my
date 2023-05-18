@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Context, useState } from "react";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 import { firestore, storage } from "@/firebase/clientApp";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { ContextStore } from "@uiw/react-md-editor";
 
 type NewPostFormProps = { user: User; communityImageURL?: string };
 
@@ -47,6 +48,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     title: "",
     body: "",
   });
+  const [editorInputs, setEditorInputs] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const handleCreatePost = async () => {
@@ -90,43 +92,56 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
       [name]: value,
     }));
   };
+  const handleChange = (
+    value: string | undefined,
+    event: React.ChangeEvent<HTMLTextAreaElement> | undefined,
+    state: ContextStore | undefined
+  ) => {
+    if (event) {
+      setEditorInputs(value);
+    }
+  };
   return (
-    <Flex direction="column" bg="white" borderRadius={4} mt={2}>
-      <Flex width="100%">
-        {formTabs.map((item) => (
-          <TabItem
-            key={item.title}
-            item={item}
-            selected={item.title === selectedTab}
-            setSelectedTab={setSelectedTab}
-          />
-        ))}
-      </Flex>
-      <Flex p={4}>
-        {selectedTab === "Post" && (
-          <TextInputs
-            textInputs={textInputs}
-            handleCreatePost={handleCreatePost}
-            onChange={onTextChange}
-            loading={loading}
-          />
+    <>
+      <Flex direction="column" bg="white" borderRadius={4} mt={2}>
+        <Flex width="100%">
+          {formTabs.map((item) => (
+            <TabItem
+              key={item.title}
+              item={item}
+              selected={item.title === selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
+          ))}
+        </Flex>
+        <Flex p={4}>
+          {selectedTab === "Post" && (
+            <TextInputs
+              editorValue={editorInputs}
+              textInputs={textInputs}
+              handleCreatePost={handleCreatePost}
+              onChange={onTextChange}
+              handleChange={handleChange}
+              loading={loading}
+            />
+          )}
+          {selectedTab === "Images & Video" && (
+            <ImageUpload
+              selectedFile={selectedFile}
+              onSelectImage={onSelectFile}
+              setSelectedTab={setSelectedTab}
+              setSelectedFile={setSelectedFile}
+            />
+          )}
+        </Flex>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <Text mr={2}>Error creating post</Text>
+          </Alert>
         )}
-        {selectedTab === "Images & Video" && (
-          <ImageUpload
-            selectedFile={selectedFile}
-            onSelectImage={onSelectFile}
-            setSelectedTab={setSelectedTab}
-            setSelectedFile={setSelectedFile}
-          />
-        )}
       </Flex>
-      {error && (
-        <Alert status="error">
-          <AlertIcon />
-          <Text mr={2}>Error creating post</Text>
-        </Alert>
-      )}
-    </Flex>
+    </>
   );
 };
 export default NewPostForm;
