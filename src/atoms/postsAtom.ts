@@ -7,7 +7,7 @@ export type Post = {
     creatorId: string;
     creatorDisplayName: string;
     title: string;
-    body: string;
+    body: string | undefined;
     numberOfComments: number;
     voteStatus: number;
     imageURL?: string;

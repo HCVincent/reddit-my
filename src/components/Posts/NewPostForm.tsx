@@ -25,10 +25,10 @@ type NewPostFormProps = { user: User; communityImageURL?: string };
 
 const formTabs = [
   { title: "Post", icon: IoDocumentText },
-  { title: "Images & Video", icon: IoImageOutline },
-  { title: "Link", icon: BsLink45Deg },
-  { title: "Poll", icon: BiPoll },
-  { title: "Talk", icon: BsMic },
+  { title: "Cover Image", icon: IoImageOutline },
+  // { title: "Link", icon: BsLink45Deg },
+  // { title: "Poll", icon: BiPoll },
+  // { title: "Talk", icon: BsMic },
 ];
 
 export type TabIt = {
@@ -58,7 +58,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
       creatorId: user?.uid,
       creatorDisplayName: user.email!.split("@")[0],
       title: textInputs.title,
-      body: textInputs.body,
+      body: editorInputs,
       numberOfComments: 0,
       voteStatus: 0,
       createdAt: serverTimestamp() as Timestamp,
@@ -125,7 +125,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
               loading={loading}
             />
           )}
-          {selectedTab === "Images & Video" && (
+          {selectedTab === "Cover Image" && (
             <ImageUpload
               selectedFile={selectedFile}
               onSelectImage={onSelectFile}

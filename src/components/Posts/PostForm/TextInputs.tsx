@@ -43,9 +43,10 @@ const TextInputs: React.FC<TextInputsProps> = ({
         fontSize="10pt"
         borderRadius={4}
         placeholder="Title"
+        _focusVisible={{ borderColor: "none", border: "none" }}
         _placeholder={{ color: "gray.500" }}
       />
-      <Textarea
+      {/* <Textarea
         name="body"
         value={textInputs.body}
         onChange={onChange}
@@ -54,11 +55,12 @@ const TextInputs: React.FC<TextInputsProps> = ({
         height="100px"
         placeholder="Text (optional)"
         _placeholder={{ color: "gray.500" }}
-      />
+      /> */}
       <MDEditor
         value={editorValue}
         onChange={handleChange}
-        className="handleChange"
+        data-color-mode="light"
+        extraCommands={[]}
       />
       <Flex justify="flex-end">
         <Button
