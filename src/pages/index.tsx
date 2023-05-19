@@ -130,6 +130,7 @@ export default function Home() {
         <Stack>
           {postStateValue.posts.map((post) => (
             <PostItem
+              disableCopy={true}
               key={post.id}
               post={post}
               onSelectPost={onSelectPost}

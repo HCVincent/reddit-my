@@ -42,6 +42,7 @@ const PostPage: React.FC = () => {
       <>
         {postStateValue.selectedPost && (
           <PostItem
+            disableCopy={false}
             post={postStateValue.selectedPost}
             onVote={onVote}
             onDeletePost={onDeletePost}

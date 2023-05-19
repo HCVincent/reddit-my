@@ -1,3 +1,213 @@
+https://github.com/uiwjs/react-md-editor
+```bash
+npm i @uiw/react-md-editor        
+npm install next-remove-imports                 
+```
+
+next.config.js
+```js
+const removeImports = require("next-remove-imports");
+
+module.exports = removeImports()({
+  // ✅  options...
+  reactStrictMode: true,
+  webpack: function (config) {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader",
+    });
+    return config;
+  },
+});
+```
+
+./components/Posts/PostForm/TextInputs.tsx
+```ts
+//...
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+import dynamic from "next/dynamic";
+const MDEditor = dynamic(
+  () => import("@uiw/react-md-editor").then((mod) => mod.default),
+  { ssr: false }
+);
+return (
+    <Stack spacing={3} width="100%" as="form">
+      <Input
+        name="title"
+        onChange={onChange}
+        value={textInputs.title}
+        fontSize="10pt"
+        borderRadius={4}
+        placeholder="Title"
+        _focusVisible={{ borderColor: "none", border: "none" }}
+        _placeholder={{ color: "gray.500" }}
+      />
+      {/* <Textarea
+        name="body"
+        value={textInputs.body}
+        onChange={onChange}
+        fontSize="10pt"
+        borderRadius={4}
+        height="100px"
+        placeholder="Text (optional)"
+        _placeholder={{ color: "gray.500" }}
+      /> */}
+      <MDEditor
+        value={editorValue}
+        onChange={handleChange}
+        data-color-mode="light"
+        extraCommands={[]}
+//...
+```
+
+./atoms/postAtom.ts
+```ts
+export type Post = {
+    id?: string;
+    communityId: string;
+    creatorId: string;
+    creatorDisplayName: string;
+    title: string;
+    body: string | undefined;
+    numberOfComments: number;
+    voteStatus: number;
+    imageURL?: string;
+    communityImageURL?: string;
+    createdAt: Timestamp;
+}
+```
+
+./components/Posts/NewPostForm.tsx
+```ts
+type NewPostFormProps = { user: User; communityImageURL?: string };
+
+const formTabs = [
+  { title: "Post", icon: IoDocumentText },
+  { title: "Images & Video", icon: IoImageOutline },
+  { title: "Link", icon: BsLink45Deg },
+  { title: "Poll", icon: BiPoll },
+  { title: "Talk", icon: BsMic },
+];
+
+export type TabIt = {
+  title: string;
+  icon: typeof Icon.arguments;
+};
+
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityImageURL,
+}) => {
+  const router = useRouter();
+  const { communityId } = router.query;
+  const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
+  const [error, setError] = useState(false);
+  const [textInputs, setTextInputs] = useState({
+    title: "",
+    body: "",
+  });
+  const [editorInputs, setEditorInputs] = useState<string | undefined>("");
+  const [loading, setLoading] = useState(false);
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
+  const handleCreatePost = async () => {
+    const newPost: Post = {
+      communityId: communityId as string,
+      communityImageURL: communityImageURL || "",
+      creatorId: user?.uid,
+      creatorDisplayName: user.email!.split("@")[0],
+      title: textInputs.title,
+      body: textInputs.body,
+      numberOfComments: 0,
+      voteStatus: 0,
+      createdAt: serverTimestamp() as Timestamp,
+    };
+    setLoading(true);
+    try {
+      const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
+      if (selectedFile) {
+        const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
+        await uploadString(imageRef, selectedFile as string, "data_url");
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(postDocRef, {
+          imageURL: downloadURL,
+        });
+      }
+      router.back();
+    } catch (error: any) {
+      console.log("handleCreatePost error", error.message);
+      setError(error);
+    }
+    setLoading(false);
+  };
+  const onTextChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const {
+      target: { name, value },
+    } = event;
+    setTextInputs((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleChange = (
+    value: string | undefined,
+    event: React.ChangeEvent<HTMLTextAreaElement> | undefined,
+    state: ContextStore | undefined
+  ) => {
+    if (event) {
+      setEditorInputs(value);
+    }
+  };
+  return (
+    <>
+      <Flex direction="column" bg="white" borderRadius={4} mt={2}>
+        <Flex width="100%">
+          {formTabs.map((item) => (
+            <TabItem
+              key={item.title}
+              item={item}
+              selected={item.title === selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
+          ))}
+        </Flex>
+        <Flex p={4}>
+          {selectedTab === "Post" && (
+            <TextInputs
+              editorValue={editorInputs}
+              textInputs={textInputs}
+              handleCreatePost={handleCreatePost}
+              onChange={onTextChange}
+              handleChange={handleChange}
+              loading={loading}
+            />
+          )}
+          {selectedTab === "Images & Video" && (
+            <ImageUpload
+              selectedFile={selectedFile}
+              onSelectImage={onSelectFile}
+              setSelectedTab={setSelectedTab}
+              setSelectedFile={setSelectedFile}
+            />
+          )}
+        </Flex>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <Text mr={2}>Error creating post</Text>
+          </Alert>
+        )}
+      </Flex>
+    </>
+  );
+};
+export default NewPostForm;
+```
+
+./components/Posts/PostItem.tsx
+```ts
 import React, { useState } from "react";
 import { Post } from "@/atoms/postsAtom";
 import {
@@ -279,3 +489,92 @@ const PostItem: React.FC<PostItemProps> = ({
   );
 };
 export default PostItem;
+```
+
+./components/Posts/Posts.tsx
+```ts
+type PostsProps = {
+  communityData: Community;
+};
+
+const Posts: React.FC<PostsProps> = ({ communityData }) => {
+  const {
+    postStateValue,
+    setPostStateValue,
+    onVote,
+    onSelectPost,
+    onDeletePost,
+  } = usePosts();
+  const [user] = useAuthState(auth);
+  const [loading, setLoading] = useState(false);
+  const getPosts = async () => {
+    try {
+      setLoading(true);
+      const postQuery = query(
+        collection(firestore, "posts"),
+        where("communityId", "==", communityData.id),
+        orderBy("createdAt", "desc")
+      );
+      const postDocs = await getDocs(postQuery);
+      const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setPostStateValue((prev) => ({
+        ...prev,
+        posts: posts as Post[],
+      }));
+    } catch (error: any) {
+      console.log("getPosts error", error.message);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, [communityData]);
+  return (
+    <>
+      {loading ? (
+        <PostLoader />
+      ) : (
+        <Stack>
+          {postStateValue.posts.map((item) => (
+            <PostItem
+              disableCopy={true}
+              key={item.id}
+              post={item}
+              userIsCreator={user?.uid === item.creatorId}
+              userVoteValue={
+                postStateValue.postVotes.find((vote) => vote.postId === item.id)
+                  ?.voteValue
+              }
+              onVote={onVote}
+              onSelectPost={onSelectPost}
+              onDeletePost={onDeletePost}
+            />
+          ))}
+        </Stack>
+      )}
+    </>
+  );
+};
+export default Posts;
+```
+
+./pages/index.tsx
+```ts
+//...
+            <PostItem
+              disableCopy={true}
+//...
+```
+
+./pages/r/[communityId]/submit.tsx
+delete         <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
+          <Text>create a post</Text>
+        </Box>
+
+./pages/r/[communityId]/comments/[pid].tsx
+//...
+            <PostItem
+              disableCopy={false}
+//...
+```

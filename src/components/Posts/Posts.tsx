@@ -54,6 +54,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
         <Stack>
           {postStateValue.posts.map((item) => (
             <PostItem
+              disableCopy={true}
               key={item.id}
               post={item}
               userIsCreator={user?.uid === item.creatorId}
