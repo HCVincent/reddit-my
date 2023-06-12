@@ -11,9 +11,10 @@ import {
   Spinner,
   Stack,
   Text,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import { BsChat, BsDot } from "react-icons/bs";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import {
   IoArrowDownCircleOutline,
   IoArrowDownCircleSharp,
@@ -50,6 +51,7 @@ type PostItemProps = {
   ) => Promise<boolean>;
   onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost?: (post: Post) => void;
+  setShow?: () => void;
   homePage?: boolean;
 };
 
@@ -62,6 +64,7 @@ const PostItem: React.FC<PostItemProps> = ({
   onDeletePost,
   onSelectPost,
   homePage,
+  setShow,
 }) => {
   const [loadingUpVote, setLoadingUpVote] = useState(false);
   const [loadingDownVote, setLoadingDownVote] = useState(false);
@@ -101,6 +104,10 @@ const PostItem: React.FC<PostItemProps> = ({
       setError(error.message);
     }
     setLoadingDelete(false);
+  };
+
+  const handleEdit = async () => {
+    setShow && setShow();
   };
   return (
     <Flex
@@ -255,23 +262,45 @@ const PostItem: React.FC<PostItemProps> = ({
             <Text fontSize="9pt">Save</Text>
           </Flex>
           {userIsCreator && (
-            <Flex
-              align="center"
-              p="8px 10px"
-              borderRadius={4}
-              _hover={{ bg: "gray.200" }}
-              cursor="pointer"
-              onClick={handleDelete}
-            >
-              {loadingDelete ? (
-                <Spinner size="sm" />
-              ) : (
+            <>
+              <Flex
+                hidden={!singlePostPage}
+                align="center"
+                p="8px 10px"
+                borderRadius={4}
+                _hover={{ bg: "gray.200" }}
+                cursor="pointer"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleEdit();
+                }}
+              >
                 <>
-                  <Icon as={AiOutlineDelete} mr={2} />
-                  <Text fontSize="9pt">Delete</Text>
+                  <Icon as={AiOutlineEdit} mr={2} />
+                  <Text fontSize="9pt">Edit</Text>
                 </>
-              )}
-            </Flex>
+              </Flex>
+              <Flex
+                align="center"
+                p="8px 10px"
+                borderRadius={4}
+                _hover={{ bg: "gray.200" }}
+                cursor="pointer"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleDelete();
+                }}
+              >
+                {loadingDelete ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <>
+                    <Icon as={AiOutlineDelete} mr={2} />
+                    <Text fontSize="9pt">Delete</Text>
+                  </>
+                )}
+              </Flex>
+            </>
           )}
         </Flex>
       </Flex>

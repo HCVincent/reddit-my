@@ -3,14 +3,16 @@ import { Post } from "@/atoms/postsAtom";
 import About from "@/components/Community/About";
 import PageContent from "@/components/Layout/PageContent";
 import Comments from "@/components/Posts/Comments/Comments";
+import EditPostForm from "@/components/Posts/EditPostForm";
+import TextInputs from "@/components/Posts/PostForm/TextInputs";
 import PostItem from "@/components/Posts/PostItem";
 import { auth, firestore } from "@/firebase/clientApp";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
 import { User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const PostPage: React.FC = () => {
@@ -19,6 +21,7 @@ const PostPage: React.FC = () => {
     usePosts();
   const router = useRouter();
   const { communityStateValue } = useCommunityData();
+  const [show, setShow] = useState(false);
   const fetchPost = async (postId: string) => {
     try {
       const postDocRef = doc(firestore, "posts", postId);
@@ -31,6 +34,7 @@ const PostPage: React.FC = () => {
       console.log("fetchPost error", error);
     }
   };
+
   useEffect(() => {
     const { pid } = router.query;
     if (pid && !postStateValue.selectedPost) {
@@ -42,6 +46,7 @@ const PostPage: React.FC = () => {
       <>
         {postStateValue.selectedPost && (
           <PostItem
+            setShow={() => setShow(true)}
             disableCopy={false}
             post={postStateValue.selectedPost}
             onVote={onVote}
@@ -52,6 +57,13 @@ const PostPage: React.FC = () => {
               )?.voteValue
             }
             userIsCreator={user?.uid === postStateValue.selectedPost?.creatorId}
+          />
+        )}
+        {user && postStateValue.selectedPost && (
+          <EditPostForm
+            setShow={() => setShow(false)}
+            post={postStateValue.selectedPost}
+            show={show}
           />
         )}
         <Comments

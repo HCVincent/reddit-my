@@ -47,6 +47,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { toggleMenuOpen } = useDirectory();
+  const router = useRouter();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
     setCommunityName(event.target.value);
@@ -57,8 +58,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   ) => {
     setCommunityType(event.target.name);
   };
+
   const handleCreateCommunity = async () => {
-    const router = useRouter();
     if (error) setError("");
     const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     if (format.test(communityName) || communityName.length < 3) {
