@@ -213,6 +213,7 @@ const PostItem: React.FC<PostItemProps> = ({
             disableCopy={disableCopy}
             wrapperElement={{ "data-color-mode": "light" }}
             source={post.body}
+            style={{ maxHeight: "200px", overflow: "auto" }}
           />
           {post.imageURL && (
             <Flex justify="center" align="center">

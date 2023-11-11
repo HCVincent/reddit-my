@@ -42,6 +42,8 @@ firebase deploy --only functions
 second way to achieve same functions above
 ./components/Modal/Auth/SignUp.tsx
 ```ts
+import {User} from "firebase/auth";
+...
 const [createUserWithEmailAndPassword, userCred, loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
   const createUserDocument = async (user: User) => {
